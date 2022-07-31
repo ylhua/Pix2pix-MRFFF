@@ -1,0 +1,16 @@
+python3 train.py --dataroot /media/huahua/DATA/MTN_dataset_shin/DIV2K/thermal/train_ab --name unet_plus_attention_pix2pix --model pix2pix --netG unet_512 \
+--direction AtoB --dataset_mode aligned --pool_size 0 --continue_train
+
+CUDA_VISIBLE_DEVICES=3 python train.py --dataroot /media/linger/udata/data_time/data/pm2/ir_vis --name pix2pix_256_m5 --model pix2pix --netG unet_256 \
+--direction AtoB --dataset_mode aligned --pool_size 0 --lambda_L1 100
+
+python train.py --dataroot /media/linger/udata/data_time/data/pm2/ir_vis --name unet5_unet++ --model pix2pix --netG unet_256 \
+--direction AtoB --dataset_mode aligned --pool_size 0 --lambda_L1 100
+
+python test.py --dataroot /media/linger/udata/data_time/data/pm2/vis_val --name unet5_attention --model pix2pix --netG unet_256 --direction AtoB --dataset_mode single
+
+python train.py --dataroot /media/linger/udata/data_time/data/pm2/ir_vis --name unet5_unet++ --model pix2pix --netG unet_256 \
+--direction AtoB --dataset_mode aligned --pool_size 0 --lambda_L1 100
+
+python test.py --dataroot ./vis_val --name unet5_attention --model pix2pix --netG unet_256 --direction AtoB \
+--results_dir ./unet++_results/ --dataset_mode single
